@@ -1,0 +1,40 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+color: black;
+}
+
+.hero-section{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  gap:100px;
+}
+
+.main-title{
+  font-size: 60px;
+  font-weight: 600;
+  max-width: 450px;
+}
+
+.btn-hero-section{
+  width: 150px;
+  height:50px;
+  background-color: #A099D4;
+  color: white;
+  border-radius: 20px;
+  border: 1px solid #A099D4;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.hero-section-wrapper-text{
+display: flex;
+flex-direction: column;
+gap: 30px;
+}

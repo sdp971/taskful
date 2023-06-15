@@ -1,0 +1,43 @@
+
+.task-container{
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+margin-top: 200px;
+ 
+}
+
+.task-form{
+ border:2px solid black;
+  width: 500px;
+height: 349px;
+flex-direction: column;
+border-radius: 10px;
+display: flex;
+justify-content: center;
+align-items: center;
+gap: 10px;
+}
+
+.task-btn{
+   padding: 10px;
+ border: none;
+ background-color: #A099D4;
+ border-radius: 20px;
+ color: white;
+ font-weight: bold;
+font-size: 18px;
+width: 150px;
+}
+
+.task-input{
+border: 1px solid black;
+height: 40px;
+width: 74%;
+}
+
+#my-select{
+  width: 200px;
+  height: 30px;
+}
