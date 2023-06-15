@@ -1,0 +1,55 @@
+.login{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card{
+display: flex;
+ min-height: 600px;
+}
+
+
+.left{
+  width: 56%;
+  }
+
+
+
+.right{
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+h1{
+  color:black
+}
+
+.login-form,
+.register-form{
+  display:flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-login,
+.input-register{
+  border:none;
+  border-bottom: 1px solid black;
+  padding: 20px 10px;
+}
+
+.login-btn,
+.register-btn{
+  width: 100%;
+ padding: 10px;
+ border: none;
+ background-color: #A099D4;
+ border-radius: 20px;
+ color: white;
+ font-weight: bold;
+font-size: 18px;
+}
