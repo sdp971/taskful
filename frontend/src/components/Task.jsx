@@ -1,17 +1,42 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
+import useApi from "../api/useApi";
 import "../styles/Task.css";
 import "../styles/TaskForm.css";
 
 function Task({ task, onUpdate, onDelete }) {
   const [editMode, setEditMode] = useState(false);
   const [description, setDescription] = useState(task.description);
-  const [progression, setProgression] = useState(task.progression);
-  const [dueDate, setDueDate] = useState(task.dueDate);
+  const [progression, setProgression] = useState(task.status);
+  const [dueDate, setDueDate] = useState(task.due_date);
 
-  const handleUpdate = () => {
-    onUpdate(task.index, description, progression, dueDate);
-    setEditMode(false);
+  const api = useApi();
+
+  const handleUpdate = async () => {
+    const updatedTask = {
+      ...task,
+      description,
+      status: progression,
+      due_date: dueDate,
+    };
+
+    try {
+      await api.put(`/visitor/${task.task_id}`, updatedTask);
+
+      onUpdate(updatedTask);
+      setEditMode(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await api.delete(`/visitor/${task.task_id}`);
+      onDelete(task.task_id);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -69,12 +94,10 @@ function Task({ task, onUpdate, onDelete }) {
         </div>
       ) : (
         <div>
-          {/* Render the task details */}
           <h3>Description: {task.description} </h3>
-          <p>Progression: {task.progression} </p>
-          <p>Date d'échéance: {task.dueDate}</p>
+          <p>Progression: {task.status} </p>
+          <p>Date d'échéance: {task.due_date}</p>
 
-          {/* Render the edit and delete buttons */}
           <div className="wrapper-buttons">
             <button
               type="button"
@@ -86,7 +109,7 @@ function Task({ task, onUpdate, onDelete }) {
             <button
               type="button"
               className="buttonRemove"
-              onClick={() => onDelete(task.index)}
+              onClick={handleDelete}
             >
               Supprimer
             </button>
@@ -100,9 +123,9 @@ function Task({ task, onUpdate, onDelete }) {
 Task.propTypes = {
   task: PropTypes.shape({
     description: PropTypes.string.isRequired,
-    progression: PropTypes.string.isRequired,
-    dueDate: PropTypes.string.isRequired,
-    index: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    due_date: PropTypes.string.isRequired,
+    task_id: PropTypes.number.isRequired,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
