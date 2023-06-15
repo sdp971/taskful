@@ -13,11 +13,12 @@ color: black;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  gap:100px;
+
+  flex-wrap: wrap;
 }
 
 .main-title{
-  font-size: 60px;
+  font-size: 5rem;
   font-weight: 600;
   max-width: 450px;
 }
@@ -37,4 +38,38 @@ color: black;
 display: flex;
 flex-direction: column;
 gap: 30px;
+}
+
+@media (max-width: 960px) {
+ .hero-section-wrapper-text{
+  order:2;
+ 
+ }
+  .main-title{
+    font-size: 3rem;
+  }
+
+  .hero-section-img {
+display: flex;
+justify-content: center;
+align-items: center;
+height: 50vh;
+max-width: 100%;
+}
+.hero-section{
+  height: auto;
+}
+
+}
+
+@media (max-width: 450px) {
+ .hero-section-img {
+display: none;
+}
+
+.hero-section-wrapper-text{
+  justify-content: center;
+padding: 50px;
+}
+
 }

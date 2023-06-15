@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Task from "./Task";
+import useApi from "../api/useApi";
 
 import "../styles/TaskForm.css";
 
@@ -9,6 +10,21 @@ function TaskForm() {
   const [dueDate, setDueDate] = useState("");
   const [tasks, setTasks] = useState([]);
   const [editMode] = useState(false);
+  const api = useApi();
+
+  const getVisitorTasks = async () => {
+    await api
+      .get("visitor")
+      .then((res) => {
+        setTasks(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  useEffect(() => {
+    getVisitorTasks();
+  }, []);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -55,6 +71,29 @@ function TaskForm() {
     setTasks(updatedTasks);
   };
 
+  const handleAdd = async () => {
+    const newTask = {
+      description,
+      status: selectValue,
+      due_date: dueDate,
+    };
+
+    try {
+      const response = await api.post("/visitor", newTask);
+      const addedTask = {
+        ...newTask,
+        task_id: response.data.task_id,
+      };
+
+      setTasks([...tasks, addedTask]);
+      setDescription("");
+      setSelectValue("");
+      setDueDate("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       {!editMode && (
@@ -89,7 +128,7 @@ function TaskForm() {
             <option value="achevé">achevé</option>
           </select>
 
-          <button type="submit" className="task-btn">
+          <button type="submit" className="task-btn" onClick={handleAdd}>
             ajouter
           </button>
         </form>
